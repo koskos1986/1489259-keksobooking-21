@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Евгений Косоплеткин](https://up.htmlacademy.ru/javascript/21/user/1489259).
-* Наставник: `Неизвестно`.
+* Наставник: [Владимир Коршунов](https://htmlacademy.ru/profile/bekobou).
 
 ---
 
