@@ -52,10 +52,12 @@ const MIN_PIN_X = 0;
 const MAX_PIN_X = 1200;
 const MIN_PIN_Y = 130;
 const MAX_PIN_Y = 630;
+
 // функция для получения случайного элемента из массива
 const getRandomElement = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
 // получение массива объектов
 const getArray = () => {
   const arrayFeatures = [];
@@ -88,14 +90,17 @@ const getArray = () => {
   }
   return arrayFeatures;
 };
+
 // переключает карту в активное состояние
 const mapToggler = (toggler) => {
   toggler.classList.remove(`map--faded`);
 };
+
 // подготовка разметки для создания метки
 const mapNode = document.querySelector(`.map`);
 const mapPinsNode = mapNode.querySelector(`.map__pins`);
 const mapPinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
+
 // создание метки
 const generatePin = (arrayFeatures) => {
   const pinElement = mapPinTemplate.cloneNode(true);
@@ -105,6 +110,7 @@ const generatePin = (arrayFeatures) => {
   pinElement.style.top = `${arrayFeatures.location.y - 35}px`;
   return pinElement;
 };
+
 // добавление фрагмента
 const createNodePin = (pin) => {
   const fragment = document.createDocumentFragment();
