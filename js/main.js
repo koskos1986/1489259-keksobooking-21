@@ -24,7 +24,7 @@ const MAX_ROOMS = 5;
 const MIN_GUESTS = 1;
 const MAX_GUESTS = 7;
 const CHECK_IN_CHECK_OUT = [`12:00`, `13:00`, `14:00`];
-const FACILITIES = [
+const FEATURES = [
   `wifi`,
   `dishwasher`,
   `parking`,
@@ -59,10 +59,10 @@ const getRandomElement = (min, max) => {
 };
 
 // получение массива объектов
-const getArray = () => {
-  const arrayFeatures = [];
+const getRandomAds = () => {
+  const randomAdsOptions = [];
   for (let i = 1; i <= NUMBER_OF_ADS; i++) {
-    arrayFeatures.push(
+    randomAdsOptions.push(
         {
           author: {
             avatar: `img/avatars/user0${i}.png`
@@ -76,7 +76,7 @@ const getArray = () => {
             guests: getRandomElement(MIN_GUESTS, MAX_GUESTS),
             checkin: getRandomElement(CHECK_IN_CHECK_OUT),
             checkout: getRandomElement(CHECK_IN_CHECK_OUT),
-            features: getRandomElement(FACILITIES),
+            features: getRandomElement(FEATURES),
             description: getRandomElement(DESCRIPTION_ROOM),
             photos: getRandomElement(PHOTOS)
           },
@@ -88,7 +88,7 @@ const getArray = () => {
         }
     );
   }
-  return arrayFeatures;
+  return randomAdsOptions;
 };
 
 // переключает карту в активное состояние
@@ -102,12 +102,12 @@ const mapPinsNode = mapNode.querySelector(`.map__pins`);
 const mapPinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
 // создание метки
-const generatePin = (arrayFeatures) => {
+const generatePin = (randomAdsOptions) => {
   const pinElement = mapPinTemplate.cloneNode(true);
-  pinElement.querySelector(`img`).src = arrayFeatures.author.avatar;
-  pinElement.querySelector(`img`).alt = arrayFeatures.offer.title;
-  pinElement.style.left = `${arrayFeatures.location.x - 25}px`;
-  pinElement.style.top = `${arrayFeatures.location.y - 35}px`;
+  pinElement.querySelector(`img`).src = randomAdsOptions.author.avatar;
+  pinElement.querySelector(`img`).alt = randomAdsOptions.offer.title;
+  pinElement.style.left = `${randomAdsOptions.location.x - 25}px`;
+  pinElement.style.top = `${randomAdsOptions.location.y - 35}px`;
   return pinElement;
 };
 
@@ -126,7 +126,7 @@ const addFragment = (element) => {
 
 // отрисовка меток
 const renderPins = () => {
-  const pinsArray = getArray(NUMBER_OF_ADS);
+  const pinsArray = getRandomAds(NUMBER_OF_ADS);
   const pinsNodeFragment = createNodePin(pinsArray);
 
   addFragment(pinsNodeFragment);
