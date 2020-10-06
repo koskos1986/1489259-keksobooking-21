@@ -82,8 +82,8 @@ const getRandomAds = () => {
           },
 
           location: {
-            'x': getRandomElement(MIN_PIN_X, MAX_PIN_X),
-            'y': getRandomElement(MIN_PIN_Y, MAX_PIN_Y)
+            'x': `${getRandomElement(MIN_PIN_X, MAX_PIN_X)}`,
+            'y': `${getRandomElement(MIN_PIN_Y, MAX_PIN_Y)}`
           }
         }
     );
@@ -92,8 +92,8 @@ const getRandomAds = () => {
 };
 
 // переключает карту в активное состояние
-const mapToggler = (toggler) => {
-  toggler.classList.remove(`map--faded`);
+const activateMap = (switcher) => {
+  switcher.classList.remove(`map--faded`);
 };
 
 // подготовка разметки для создания метки
@@ -102,7 +102,7 @@ const mapPinsNode = mapNode.querySelector(`.map__pins`);
 const mapPinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
 // создание метки
-const generatePin = (randomAdsOptions) => {
+const getPin = (randomAdsOptions) => {
   const pinElement = mapPinTemplate.cloneNode(true);
   pinElement.querySelector(`img`).src = randomAdsOptions.author.avatar;
   pinElement.querySelector(`img`).alt = randomAdsOptions.offer.title;
@@ -115,7 +115,7 @@ const generatePin = (randomAdsOptions) => {
 const createNodePin = (pin) => {
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < pin.length; i++) {
-    fragment.appendChild(generatePin(pin[i]));
+    fragment.appendChild(getPin(pin[i]));
   }
   return fragment;
 };
@@ -125,13 +125,13 @@ const addFragment = (element) => {
 };
 
 // отрисовка меток
-const renderPins = () => {
+const generatePins = () => {
   const pinsArray = getRandomAds(NUMBER_OF_ADS);
   const pinsNodeFragment = createNodePin(pinsArray);
 
   addFragment(pinsNodeFragment);
 
-  mapToggler(mapNode);
+  activateMap(mapNode);
 };
 
-renderPins();
+generatePins();
