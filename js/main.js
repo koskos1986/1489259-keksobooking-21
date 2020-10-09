@@ -53,85 +53,94 @@ const MAX_PIN_X = 1200;
 const MIN_PIN_Y = 130;
 const MAX_PIN_Y = 630;
 
-// функция для получения случайного элемента из массива
-const getRandomElement = (min, max) => {
+// Положение центра острия метки
+const INDENT_FOR_PIN_EDGE_X = 25;
+const INDENT_FOR_PIN_EDGE_Y = 35;
+
+// функции для получения случайных элементов
+const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+const getRandomItemFromArray = (listOfItems) => {
+  return Math.floor(Math.random() * listOfItems.length);
+};
+// Координаты
+const getPinCoordinates = () => {
+  let getPinCoordinatesArray = [getRandomNumber(MIN_PIN_X, MAX_PIN_X), getRandomNumber(MIN_PIN_Y, MAX_PIN_Y)];
+  return getPinCoordinatesArray;
+};
+
 // получение массива объектов
-const getRandomAds = () => {
-  const randomAdsOptions = [];
-  for (let i = 1; i <= NUMBER_OF_ADS; i++) {
-    randomAdsOptions.push(
+const getMockAds = (count) => {
+  const ads = [];
+
+  for (let i = 1; i <= count; i++) {
+    const pinLocation = getPinCoordinates(i);
+    ads.push(
         {
           author: {
             avatar: `img/avatars/user0${i}.png`
           },
           offer: {
-            title: getRandomElement(OFFER_TITLE),
-            address: `${getRandomElement(MIN_PIN_X, MAX_PIN_X)}, ${getRandomElement(MIN_PIN_Y, MAX_PIN_Y)}`,
-            price: getRandomElement(MIN_PRICE, MAX_PRICE),
-            type: getRandomElement(TYPE),
-            rooms: getRandomElement(MIN_ROOMS, MAX_ROOMS),
-            guests: getRandomElement(MIN_GUESTS, MAX_GUESTS),
-            checkin: getRandomElement(CHECK_IN_CHECK_OUT),
-            checkout: getRandomElement(CHECK_IN_CHECK_OUT),
-            features: getRandomElement(FEATURES),
-            description: getRandomElement(DESCRIPTION_ROOM),
-            photos: getRandomElement(PHOTOS)
+            title: getRandomItemFromArray(OFFER_TITLE),
+            address: pinLocation,
+            price: getRandomNumber(MIN_PRICE, MAX_PRICE),
+            type: getRandomItemFromArray(TYPE),
+            rooms: getRandomNumber(MIN_ROOMS, MAX_ROOMS),
+            guests: getRandomNumber(MIN_GUESTS, MAX_GUESTS),
+            checkin: getRandomItemFromArray(CHECK_IN_CHECK_OUT),
+            checkout: getRandomItemFromArray(CHECK_IN_CHECK_OUT),
+            features: getRandomItemFromArray(FEATURES),
+            description: getRandomItemFromArray(DESCRIPTION_ROOM),
+            photos: getRandomItemFromArray(PHOTOS)
           },
 
           location: {
-            'x': `${getRandomElement(MIN_PIN_X, MAX_PIN_X)}`,
-            'y': `${getRandomElement(MIN_PIN_Y, MAX_PIN_Y)}`
+            x: pinLocation[0],
+            y: pinLocation[1],
           }
         }
     );
   }
-  return randomAdsOptions;
+  return ads;
 };
 
 // переключает карту в активное состояние
-const activateMap = (switcher) => {
-  switcher.classList.remove(`map--faded`);
-};
+const mapElement = document.querySelector(`.map`);
+mapElement.classList.remove(`map--faded`);
 
 // подготовка разметки для создания метки
-const mapNode = document.querySelector(`.map`);
-const mapPinsNode = mapNode.querySelector(`.map__pins`);
+const mapPinElement = mapElement.querySelector(`.map__pins`);
 const mapPinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
 // создание метки
-const getPin = (randomAdsOptions) => {
+const getPin = (ad) => {
   const pinElement = mapPinTemplate.cloneNode(true);
-  pinElement.querySelector(`img`).src = randomAdsOptions.author.avatar;
-  pinElement.querySelector(`img`).alt = randomAdsOptions.offer.title;
-  pinElement.style.left = `${randomAdsOptions.location.x - 25}px`;
-  pinElement.style.top = `${randomAdsOptions.location.y - 35}px`;
+  pinElement.querySelector(`img`).src = ad.author.avatar;
+  pinElement.querySelector(`img`).alt = ad.offer.title;
+  pinElement.style.left = `${ad.location.x - INDENT_FOR_PIN_EDGE_X}px`;
+  pinElement.style.top = `${ad.location.y - INDENT_FOR_PIN_EDGE_Y}px`;
   return pinElement;
 };
 
 // добавление фрагмента
-const createNodePin = (pin) => {
+const createFragmentWithPins = (ads) => {
   const fragment = document.createDocumentFragment();
-  for (let i = 0; i < pin.length; i++) {
-    fragment.appendChild(getPin(pin[i]));
+  for (let i = 0; i < ads.length; i++) {
+    fragment.appendChild(getPin(ads[i]));
   }
   return fragment;
 };
 
-const addFragment = (element) => {
-  mapPinsNode.appendChild(element);
-};
+const addFragment = (element) => mapPinElement.appendChild(element);
 
-// отрисовка меток
-const generatePins = () => {
-  const pinsArray = getRandomAds(NUMBER_OF_ADS);
-  const pinsNodeFragment = createNodePin(pinsArray);
+const pinsArray = getMockAds(NUMBER_OF_ADS);
+
+const renderPins = () => {
+  const pinsNodeFragment = createFragmentWithPins(pinsArray);
 
   addFragment(pinsNodeFragment);
-
-  activateMap(mapNode);
 };
 
-generatePins();
+renderPins();
