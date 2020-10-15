@@ -200,11 +200,11 @@ const generateAdCard = (ad) => {
     cardCapacity.remove();
   }
 
-  const cardCheckinInOut = cardElement.querySelector(`.popup__text--time`);
+  const cardCheckInOut = cardElement.querySelector(`.popup__text--time`);
   if (ad.offer.checkin && ad.offer.checkout) {
-    cardCheckinInOut.textContent = `Заезд после ${ad.offer.checkin}, выезд\u00A0до ${ad.offer.checkout}`;
+    cardCheckInOut.textContent = `Заезд после ${ad.offer.checkin}, выезд\u00A0до ${ad.offer.checkout}`;
   } else {
-    cardCheckinInOut.remove();
+    cardCheckInOut.remove();
   }
 
   const cardFeatures = cardElement.querySelector(`.popup__features`);
