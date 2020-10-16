@@ -113,12 +113,12 @@ const getMockAds = (count) => {
 const mapElement = document.querySelector(`.map`);
 
 // подготовка разметки для создания метки
-const mapPinElement = mapElement.querySelector(`.map__pins`);
-const mapPinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
+const mainPinElement = mapElement.querySelector(`.map__pins`);
+const mainPinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
 // создание метки
 const getPin = (ad) => {
-  const pinElement = mapPinTemplate.cloneNode(true);
+  const pinElement = mainPinTemplate.cloneNode(true);
   pinElement.querySelector(`img`).src = ad.author.avatar;
   pinElement.querySelector(`img`).alt = ad.offer.title;
   pinElement.style.left = `${ad.location.x - INDENT_FOR_PIN_EDGE_X}px`;
@@ -135,7 +135,7 @@ const createFragmentWithPins = (ads) => {
   return fragment;
 };
 
-const addFragment = (element) => mapPinElement.appendChild(element);
+const addFragment = (element) => mainPinElement.appendChild(element);
 
 const pinsArray = getMockAds(NUMBER_OF_ADS);
 
@@ -145,8 +145,9 @@ const renderPins = () => {
   addFragment(pinsNodeFragment);
 };
 // m3-t2
+/* const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+
 const generateAdCard = (ad) => {
-  const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
   const cardElement = cardTemplate.cloneNode(true);
 
   const cardTitle = cardElement.querySelector(`.popup__title`);
@@ -247,9 +248,105 @@ const generateAdCard = (ad) => {
   }
 
   return cardElement;
+}; */
+
+// const mapFilterContainer = document.querySelector(`.map__filters-container`);
+// mapElement.classList.remove(`map--faded`);
+// mapElement.insertBefore(generateAdCard(pinsArray[0]), mapFilterContainer);
+// renderPins();
+
+// m4-t1
+const MAIN_PIN_WIDTH = 65;
+const MAIN_PIN_HEIGHT = 65;
+const PIN_TIP_HEIGHT = 22;
+const MOUSE_MAIN_BUTTON = 0;
+const mainPin = mainPinElement.querySelector(`.map__pin--main`);
+const adForm = document.querySelector(`.ad-form`);
+const adFormSelects = adForm.querySelectorAll(`select`);
+const adFormInputs = adForm.querySelectorAll(`input`);
+const adFormTextarea = adForm.querySelector(`#description`);
+const adFormSubmit = adForm.querySelector(`.ad-form__element--submit`);
+const mapFilter = document.querySelector(`.map__filters`);
+const mapFilterSelects = mapFilter.querySelectorAll(`select`);
+const mapFilterInputs = mapFilter.querySelectorAll(`input`);
+const mainPinLocation = adForm.querySelector(`#address`);
+const mainPinPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
+const mainPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT / 2);
+const RoomsForGuests = {
+  1: [`1`],
+  2: [`1`, `2`],
+  3: [`1`, `2`, `3`],
+  100: [`0`]
+};
+// блокировка формы
+const setPageDisabled = (elements) => {
+  elements.forEach((element) => {
+    element.setAttribute(`disabled`, `true`);
+  });
 };
 
-const mapFilterContainer = document.querySelector(`.map__filters-container`);
-mapElement.classList.remove(`map--faded`);
-mapElement.insertBefore(generateAdCard(pinsArray[0]), mapFilterContainer);
-renderPins();
+const setPageActive = (elements) => {
+  elements.forEach((element) => {
+    element.removeAttribute(`disabled`, `true`);
+  });
+};
+
+setPageDisabled(mapFilterSelects);
+setPageDisabled(mapFilterInputs);
+setPageDisabled(adFormSelects);
+setPageDisabled(adFormInputs);
+adFormTextarea.setAttribute(`disabled`, `true`);
+adFormSubmit.setAttribute(`disabled`, `true`);
+
+// Заполнение поля адреса
+const getMainPinPosition = () => {
+  mainPinLocation.value = `${mainPinPositionX}, ${mainPinPositionY}`;
+};
+
+getMainPinPosition();
+const setupAddress = () => {
+  const newPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
+  mainPinLocation.value = `${mainPinPositionX}, ${newPinPositionY}`;
+};
+
+// События для активации
+mainPin.addEventListener(`mousedown`, (evt) => {
+  if (evt.button === MOUSE_MAIN_BUTTON) {
+    activatePage();
+  }
+});
+
+const onMainPinKeydown = (evt) => {
+  if (evt.key === `Enter`) {
+    activatePage();
+  }
+};
+
+mainPin.addEventListener(`keydown`, onMainPinKeydown);
+
+const activatePage = () => {
+  adForm.classList.remove(`ad-form--disabled`);
+  mapElement.classList.remove(`map--faded`);
+  setPageActive(adFormInputs);
+  setPageActive(adFormSelects);
+  setPageActive(mapFilterSelects);
+  setPageActive(mapFilterInputs);
+  setupAddress();
+  adFormTextarea.removeAttribute(`disabled`, `true`);
+  adFormSubmit.removeAttribute(`disabled`, `true`);
+  renderPins();
+  mainPin.removeEventListener(`keydown`, onMainPinKeydown);
+};
+// Валидация гостей и комнат
+
+const getCapacityChange = () => {
+  const validationMessage = !RoomsForGuests[adForm.rooms.value].includes(adForm.capacity.value)
+    ? `Несоответствие количества комнат количеству гостей`
+    : ``;
+  adForm.capacity.setCustomValidity(validationMessage);
+  adForm.capacity.reportValidity();
+};
+
+adForm.rooms.addEventListener(`input`, getCapacityChange);
+adForm.capacity.addEventListener(`input`, getCapacityChange);
+adFormSubmit.addEventListener(`click`, getCapacityChange);
