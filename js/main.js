@@ -59,7 +59,18 @@ const INDENT_FOR_PIN_EDGE_Y = 35;
 const MAIN_PIN_WIDTH = 65;
 const MAIN_PIN_HEIGHT = 65;
 const PIN_TIP_HEIGHT = 22;
+
 const MOUSE_MAIN_BUTTON = 0;
+const ENTER_KEY = 13;
+
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const PRICE_PER_TYPE_ROOM = {
+  palace: 10000,
+  flat: 5000,
+  house: 1000,
+  bungalow: 0
+};
 // функции для получения случайных элементов
 const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -70,6 +81,7 @@ const getRandomItemFromArray = (array) => {
 };
 
 const getSeveralItemsFromArray = (array) => array.slice(0, getRandomNumber(0, array.length - 1));
+
 // Координаты
 const getPinCoordinates = () => {
   let getPinCoordinatesArray = {
@@ -82,7 +94,6 @@ const getPinCoordinates = () => {
 // получение массива объектов
 const getMockAds = (count) => {
   const ads = [];
-
   for (let i = 0; i < count; i++) {
     const pinLocation = getPinCoordinates();
     ads.push(
@@ -103,7 +114,6 @@ const getMockAds = (count) => {
             description: getRandomItemFromArray(DESCRIPTION_ROOM),
             photos: getSeveralItemsFromArray(PHOTOS)
           },
-
           location: {
             x: pinLocation.x,
             y: pinLocation.y,
@@ -141,48 +151,43 @@ const createFragmentWithPins = (ads) => {
 };
 
 const addFragment = (element) => mapPins.appendChild(element);
-
 const pinsArray = getMockAds(NUMBER_OF_ADS);
-
 const renderPins = () => {
   const pinsNodeFragment = createFragmentWithPins(pinsArray);
-
   addFragment(pinsNodeFragment);
 };
+
 // m4-t1
 const mainPin = mapPins.querySelector(`.map__pin--main`);
 const adForm = document.querySelector(`.ad-form`);
 const adFormFieldset = adForm.querySelectorAll(`fieldset`);
 const adFormSubmit = adForm.querySelector(`.ad-form__element--submit`);
 const mainPinLocation = adForm.querySelector(`#address`);
+const titleInput = document.querySelector(`#title`);
+const checkInSelect = adForm.querySelector(`#timein`);
+const checkOutSelect = adForm.querySelector(`#timeout`);
+const typeRoomSelect = adForm.querySelector(`#type`);
+const selectRoomPrice = adForm.querySelector(`#price`);
+const mapFiltersContainer = document.querySelector(`.map__filters-container`);
+const mapFiltersContainerElements = mapFiltersContainer.querySelector(`.map__filters`).children;
 const mainPinPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
-const mainPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT / 2);
 const RoomsForGuests = {
   1: [`1`],
   2: [`1`, `2`],
   3: [`1`, `2`, `3`],
   100: [`0`]
 };
+
 // блокировка формы
-const disableFormElements = () => {
-  adFormFieldset.forEach((element) => {
-    element.disabled = true;
-  });
+const toggleFormElements = (elements, isDisabled) => {
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].disabled = isDisabled;
+  }
 };
 
-const activateFormElements = () => {
-  adFormFieldset.forEach((element) => {
-    element.disabled = false;
-  });
-};
+toggleFormElements(adFormFieldset, true);
+toggleFormElements(mapFiltersContainerElements, true);
 
-disableFormElements(adFormFieldset);
-// Заполнение поля адреса
-const changeValuesMainPinPosition = () => {
-  mainPinLocation.value = `${mainPinPositionX}, ${mainPinPositionY}`;
-};
-
-changeValuesMainPinPosition();
 const setupAddress = () => {
   const newPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
   mainPinLocation.value = `${mainPinPositionX}, ${newPinPositionY}`;
@@ -196,7 +201,7 @@ mainPin.addEventListener(`mousedown`, (evt) => {
 });
 
 const onMainPinKeydown = (evt) => {
-  if (evt.key === `Enter`) {
+  if (evt.keyCode === ENTER_KEY) {
     activatePage();
   }
 };
@@ -206,14 +211,16 @@ mainPin.addEventListener(`keydown`, onMainPinKeydown);
 const activatePage = () => {
   adForm.classList.remove(`ad-form--disabled`);
   mapElement.classList.remove(`map--faded`);
-  activateFormElements(adFormFieldset);
+  toggleFormElements(adFormFieldset, false);
+  toggleFormElements(mapFiltersContainerElements, false);
   setupAddress();
   renderPins();
-  mainPin.removeEventListener(`mousedown`, onMainPinKeydown);
-  mainPin.removeEventListener(`keydown`, onMainPinKeydown);
 };
-// Валидация гостей и комнат
 
+mainPin.removeEventListener(`mousedown`, onMainPinKeydown);
+mainPin.removeEventListener(`keydown`, onMainPinKeydown);
+
+// Валидация гостей и комнат
 const getCapacityChange = () => {
   const validationMessage = !RoomsForGuests[adForm.rooms.value].includes(adForm.capacity.value)
     ? `Несоответствие количества комнат количеству гостей`
@@ -222,6 +229,39 @@ const getCapacityChange = () => {
   adForm.capacity.reportValidity();
 };
 
+// Валидация заголовка
+const validateTitle = () => {
+  const titleLength = titleInput.value.length;
+  if (titleLength < MIN_TITLE_LENGTH) {
+    titleInput.setCustomValidity(`Введите ${MIN_TITLE_LENGTH - titleLength} символов`);
+  } else if (titleLength > MAX_TITLE_LENGTH) {
+    titleInput.setCustomValidity(`Удалите ${titleLength - MAX_TITLE_LENGTH} символов`);
+  } else {
+    titleInput.setCustomValidity(``);
+  }
+  titleInput.reportValidity();
+};
+
+// Валидация времени заезда
+const validateCheckIn = () => {
+  checkOutSelect.value = checkInSelect.value;
+};
+
+const validateCheckOut = () => {
+  checkInSelect.value = checkOutSelect.value;
+};
+
+// Валидация типа жилья
+const validateMinPriceForTypeRoom = () => {
+  const typeRoom = typeRoomSelect.value;
+  selectRoomPrice.min = PRICE_PER_TYPE_ROOM[typeRoom];
+  selectRoomPrice.placeholder = PRICE_PER_TYPE_ROOM[typeRoom];
+};
+
+titleInput.addEventListener(`input`, validateTitle);
+checkInSelect.addEventListener(`change`, validateCheckIn);
+checkOutSelect.addEventListener(`change`, validateCheckOut);
 adForm.rooms.addEventListener(`input`, getCapacityChange);
 adForm.capacity.addEventListener(`input`, getCapacityChange);
 adFormSubmit.addEventListener(`click`, getCapacityChange);
+typeRoomSelect.addEventListener(`change`, validateMinPriceForTypeRoom);
