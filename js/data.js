@@ -93,7 +93,7 @@
     }
     return ads;
   };
-  // const pinsArray = getMockAds(NUMBER_OF_ADS);
+
   window.data = {
     'pinsArray': getMockAds(NUMBER_OF_ADS)
   };

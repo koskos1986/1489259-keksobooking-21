@@ -7,7 +7,6 @@
   const checkInSelect = adForm.querySelector(`#timein`);
   const checkOutSelect = adForm.querySelector(`#timeout`);
   const typeRoomSelect = adForm.querySelector(`#type`);
-  // const selectRoomPrice = adForm.querySelector(`#price`);
 
   titleInput.addEventListener(`input`, window.validators.validateTitle);
   checkInSelect.addEventListener(`change`, window.validators.validateCheckIn);
