@@ -39,10 +39,10 @@
   const removeAdCard = () => {
     const currentCard = mapElement.querySelector(`.map__card`);
     if (currentCard) {
+      document.removeEventListener(`mousedown`, onClickCloseButton);
+      document.removeEventListener(`keydown`, onPressEscButton);
       currentCard.remove();
     }
-    document.removeEventListener(`mousedown`, onClickCloseButton);
-    document.removeEventListener(`keydown`, onPressEscButton);
   };
 
   window.map = {
