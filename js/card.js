@@ -103,7 +103,6 @@
     } else {
       cardAvatar.remove();
     }
-    console.log(cardElement);
     return cardElement;
   };
 
