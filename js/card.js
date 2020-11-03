@@ -2,6 +2,11 @@
 
 (() => {
   const generateAdCard = (ad) => {
+    const previousCard = document.querySelector(`.map__card`);
+    if (previousCard) {
+      previousCard.remove();
+    }
+
     const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
     const cardElement = cardTemplate.cloneNode(true);
     const cardTitle = cardElement.querySelector(`.popup__title`);
@@ -98,13 +103,14 @@
     } else {
       cardAvatar.remove();
     }
+    console.log(cardElement);
     return cardElement;
   };
 
-  const renderAdCard = () => {
+  const renderAdCard = (ad) => {
     const mapElement = document.querySelector(`.map`);
     const mapFilterContainer = document.querySelector(`.map__filters-container`);
-    mapElement.insertBefore(generateAdCard(window.data.pinsArray[0]), mapFilterContainer);
+    mapElement.insertBefore(generateAdCard(ad), mapFilterContainer);
     const currentCard = mapElement.querySelector(`.map__card`);
     const adCardCloseButton = currentCard.querySelector(`.popup__close`);
     adCardCloseButton.addEventListener(`click`, window.map.removeAdCard);

@@ -24,21 +24,6 @@
   mainPin.addEventListener(`keydown`, onMainPinKeydown);
   mainPin.addEventListener(`mousedown`, onMainPinMouseDown);
 
-  const onClickMapPin = (evt) => {
-    if (evt.button === MOUSE_MAIN_BUTTON && evt.target.closest(`.map__pin`) && !evt.target.closest(`.map__pin--main`)) {
-      window.card.renderAdCard();
-    }
-  };
-
-  const onPressEnterMapPin = (evt) => {
-    if (evt.button === ENTER_KEY && evt.target.closest(`.map__pin`) && !evt.target.closest(`.map__pin--main`)) {
-      window.card.renderAdCard();
-    }
-  };
-
-  mapPins.addEventListener(`click`, onClickMapPin);
-  mapPins.addEventListener(`keydown`, onPressEnterMapPin);
-
   const onClickCloseButton = (evt) => {
     if (evt.button === MOUSE_MAIN_BUTTON) {
       removeAdCard();
