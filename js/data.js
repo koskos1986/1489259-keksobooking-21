@@ -2,7 +2,7 @@
 
 (() => {
   const NUMBER_OF_ADS = 8;
-  const OFFER_TITLE = [
+  const OFFER_TITLES = [
     `Комната с видом`,
     `Аппартаменты в центре`,
     `Пентхаус`,
@@ -14,7 +14,7 @@
   ];
   const MIN_PRICE = 500;
   const MAX_PRICE = 20000;
-  const TYPE = [
+  const TYPES = [
     `palace`,
     `flat`,
     `house`,
@@ -24,7 +24,7 @@
   const MAX_ROOMS = 5;
   const MIN_GUESTS = 1;
   const MAX_GUESTS = 7;
-  const CHECK_IN_CHECK_OUT = [`12:00`, `13:00`, `14:00`];
+  const CHECK_IN_CHECK_OUT_TIMES = [`12:00`, `13:00`, `14:00`];
   const FEATURES = [
     `wifi`,
     `dishwasher`,
@@ -33,7 +33,7 @@
     `elevator`,
     `conditioner`
   ];
-  const DESCRIPTION_ROOM = [
+  const DESCRIPTION_ROOMS = [
     `Отличная комната №1`,
     `Отличная комната №2`,
     `Отличная комната №3`,
@@ -72,16 +72,16 @@
               avatar: `img/avatars/user0${i + 1}.png`
             },
             offer: {
-              title: window.utils.getRandomItemFromArray(OFFER_TITLE),
+              title: window.utils.getRandomItemFromArray(OFFER_TITLES),
               address: pinLocation.x + ` ` + pinLocation.y,
               price: window.utils.getRandomNumber(MIN_PRICE, MAX_PRICE),
-              type: window.utils.getRandomItemFromArray(TYPE),
+              type: window.utils.getRandomItemFromArray(TYPES),
               rooms: window.utils.getRandomNumber(MIN_ROOMS, MAX_ROOMS),
               guests: window.utils.getRandomNumber(MIN_GUESTS, MAX_GUESTS),
-              checkin: window.utils.getRandomItemFromArray(CHECK_IN_CHECK_OUT),
-              checkout: window.utils.getRandomItemFromArray(CHECK_IN_CHECK_OUT),
+              checkin: window.utils.getRandomItemFromArray(CHECK_IN_CHECK_OUT_TIMES),
+              checkout: window.utils.getRandomItemFromArray(CHECK_IN_CHECK_OUT_TIMES),
               features: window.utils.getSeveralItemsFromArray(FEATURES),
-              description: window.utils.getRandomItemFromArray(DESCRIPTION_ROOM),
+              description: window.utils.getRandomItemFromArray(DESCRIPTION_ROOMS),
               photos: window.utils.getSeveralItemsFromArray(PHOTOS)
             },
             location: {
