@@ -1,8 +1,8 @@
 'use strict';
 
 (() => {
-  const MAIN_PIN_WIDTH = 65;
-  const MAIN_PIN_HEIGHT = 65;
+  const MAIN_PIN_WIDTH = 62;
+  const MAIN_PIN_HEIGHT = 62;
   const PIN_TIP_HEIGHT = 22;
 
   const getRandomNumber = (min, max) => {
@@ -25,11 +25,11 @@
   const mapPins = mapElement.querySelector(`.map__pins`);
   const mainPin = mapPins.querySelector(`.map__pin--main`);
   const mainPinLocation = adForm.querySelector(`#address`);
-  const mainPinPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
 
   const setupAddress = () => {
     const newPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
-    mainPinLocation.value = `${mainPinPositionX}, ${newPinPositionY}`;
+    const newPinPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
+    mainPinLocation.value = `${newPinPositionX}, ${newPinPositionY}`;
   };
 
   window.utils = {
