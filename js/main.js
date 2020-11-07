@@ -7,9 +7,37 @@
   const adFormFieldset = adForm.querySelectorAll(`fieldset`);
   const mapFiltersContainer = document.querySelector(`.map__filters-container`);
   const mapFiltersContainerElements = mapFiltersContainer.querySelector(`.map__filters`).children;
+  const errorPopupTemplate = document.querySelector(`#error`).content.querySelector(`.error`);
 
   window.utils.toggleFormElements(adFormFieldset, true);
   window.utils.toggleFormElements(mapFiltersContainerElements, true);
+
+  const onSuccess = (serverResponse) => {
+    window.data = {
+      'pinsArray': serverResponse,
+    };
+    window.pins.renderPins(window.data.pinsArray);
+  };
+
+  const onError = (errorMessage) => {
+    let errorPopup = errorPopupTemplate.cloneNode(true);
+    errorPopup.querySelector(`.error__message`).textContent = errorMessage;
+
+    document.body.appendChild(errorPopup);
+
+    const errorCloseButton = errorPopup.querySelector(`.error__button`);
+    const onErrorCloseButtonClick = (evt) => {
+      evt.preventDefault();
+      errorPopupClose();
+    };
+
+    errorCloseButton.addEventListener(`click`, onErrorCloseButtonClick);
+
+    const errorPopupClose = () => {
+      document.querySelector(`.error`).remove();
+      location.reload();
+    };
+  };
 
   const activatePage = () => {
     const mainPin = mapPins.querySelector(`.map__pin--main`);
@@ -20,7 +48,7 @@
     window.utils.setupAddress();
     mainPin.removeEventListener(`mousedown`, window.map.onMainPinMouseDown);
     mainPin.removeEventListener(`keydown`, window.map.onMainPinKeydown);
-    window.pins.renderPins();
+    window.backend.load(onSuccess, onError);
   };
 
   window.main = {
