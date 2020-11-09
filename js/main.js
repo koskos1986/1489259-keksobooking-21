@@ -13,10 +13,8 @@
   window.utils.toggleFormElements(mapFiltersContainerElements, true);
 
   const onSuccess = (serverResponse) => {
-    window.data = {
-      'pinsArray': serverResponse,
-    };
-    window.pins.renderPins(window.data.pinsArray);
+    window.data.saveData(serverResponse);
+    window.pins.renderPins(window.data.getData());
   };
 
   const onError = (errorMessage) => {
