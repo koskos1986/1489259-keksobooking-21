@@ -43,7 +43,7 @@
 
   const addFragment = (element) => mapPins.appendChild(element);
   const renderPins = () => {
-    const pinsNodeFragment = createFragmentWithPins(window.data.pinsArray);
+    const pinsNodeFragment = createFragmentWithPins(window.data.getData());
     addFragment(pinsNodeFragment);
   };
 

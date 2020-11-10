@@ -1,6 +1,7 @@
 'use strict';
 
 (() => {
+  const formReset = document.querySelector(`.ad-form__reset`);
   const adForm = document.querySelector(`.ad-form`);
   const adFormSubmit = adForm.querySelector(`.ad-form__element--submit`);
   const titleInput = document.querySelector(`#title`);
@@ -15,4 +16,17 @@
   adForm.capacity.addEventListener(`input`, window.validators.getCapacityChange);
   adFormSubmit.addEventListener(`click`, window.validators.getCapacityChange);
   typeRoomSelect.addEventListener(`change`, window.validators.validateMinPriceForTypeRoom);
+
+  adForm.addEventListener(`submit`, function (evt) {
+    window.backend.upload(new FormData(adForm), window.message.showSuccessMessage, window.message.onError);
+    evt.preventDefault();
+  });
+
+  const onFormResetButtonClick = (evt) => {
+    evt.preventDefault();
+    adForm.reset();
+  };
+
+  formReset.addEventListener(`click`, onFormResetButtonClick);
+
 })();
