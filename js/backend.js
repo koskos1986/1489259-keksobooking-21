@@ -60,7 +60,7 @@
     xhr.send();
   };
 
-  const upload =  (data, onSuccess, onError) => {
+  const upload = (data, onSuccess, onError) => {
     const xhr = createXHR(`POST`, URL_TO_POST, onSuccess, onError);
     xhr.send(data);
   };

@@ -41,8 +41,8 @@
   };
 
   const onSuccess = (serverResponse) => {
-    window.data.saveData(serverResponse);
-    window.pins.renderPins(window.data.getData());
+    window.data.saveAds(serverResponse);
+    window.pins.renderPins(window.data.getAds());
   };
 
   const activatePage = () => {

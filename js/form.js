@@ -18,13 +18,16 @@
   typeRoomSelect.addEventListener(`change`, window.validators.validateMinPriceForTypeRoom);
 
   adForm.addEventListener(`submit`, function (evt) {
-    window.backend.upload(new FormData(adForm), window.message.showSuccessMessage, window.message.onError);
-    evt.preventDefault();
+    if (adForm.reportValidity()) {
+      window.backend.upload(new FormData(adForm), window.message.showSuccessMessage, window.message.onError);
+      evt.preventDefault();
+    }
   });
 
   const onFormResetButtonClick = (evt) => {
     evt.preventDefault();
     adForm.reset();
+    window.main.deactivatePage();
   };
 
   formReset.addEventListener(`click`, onFormResetButtonClick);
