@@ -1,6 +1,7 @@
 'use strict';
 
 (() => {
+  const MAX_ADVERTS_COUNT = 5;
   const INDENT_FOR_PIN_EDGE_X = 25;
   const INDENT_FOR_PIN_EDGE_Y = 35;
   const MOUSE_MAIN_BUTTON = 0;
@@ -34,20 +35,33 @@
 
   // добавление фрагмента
   const createFragmentWithPins = (ads) => {
+    const counter = ads.length <= MAX_ADVERTS_COUNT ? ads.length : MAX_ADVERTS_COUNT;
     const fragment = document.createDocumentFragment();
-    for (let i = 0; i < ads.length; i++) {
+    for (let i = 0; i < counter; i++) {
       fragment.appendChild(getPin(ads[i]));
     }
     return fragment;
   };
 
   const addFragment = (element) => mapPins.appendChild(element);
+
   const renderPins = () => {
+    removePins();
     const pinsNodeFragment = createFragmentWithPins(window.data.getAds());
     addFragment(pinsNodeFragment);
   };
 
+  const removePins = () => {
+    if (mapElement.querySelector(`.map__pin:not(.map__pin--main)`)) {
+      const mapPins = mapElement.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+      for (let pin of mapPins) {
+        pin.remove();
+      }
+    }
+  };
+
   window.pins = {
+    'removePins': removePins,
     'renderPins': renderPins
   };
 })();

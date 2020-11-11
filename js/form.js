@@ -17,7 +17,7 @@
   adFormSubmit.addEventListener(`click`, window.validators.getCapacityChange);
   typeRoomSelect.addEventListener(`change`, window.validators.validateMinPriceForTypeRoom);
 
-  adForm.addEventListener(`submit`, function (evt) {
+  adForm.addEventListener(`submit`, (evt) => {
     if (adForm.reportValidity()) {
       window.backend.upload(new FormData(adForm), window.message.showSuccessMessage, window.message.onError);
       evt.preventDefault();
