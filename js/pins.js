@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const MAX_ADVERTS_COUNT = 5;
+  const MAX_ADS_COUNT = 5;
   const INDENT_FOR_PIN_EDGE_X = 25;
   const INDENT_FOR_PIN_EDGE_Y = 35;
   const MOUSE_MAIN_BUTTON = 0;
@@ -35,7 +35,7 @@
 
   // добавление фрагмента
   const createFragmentWithPins = (ads) => {
-    const counter = ads.length <= MAX_ADVERTS_COUNT ? ads.length : MAX_ADVERTS_COUNT;
+    const counter = ads.length <= MAX_ADS_COUNT ? ads.length : MAX_ADS_COUNT;
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < counter; i++) {
       fragment.appendChild(getPin(ads[i]));
@@ -45,16 +45,16 @@
 
   const addFragment = (element) => mapPins.appendChild(element);
 
-  const renderPins = () => {
+  const renderPins = (ads) => {
     removePins();
-    const pinsNodeFragment = createFragmentWithPins(window.data.getAds());
+    const pinsNodeFragment = createFragmentWithPins(ads);
     addFragment(pinsNodeFragment);
   };
 
   const removePins = () => {
     if (mapElement.querySelector(`.map__pin:not(.map__pin--main)`)) {
-      const mapPins = mapElement.querySelectorAll(`.map__pin:not(.map__pin--main)`);
-      for (let pin of mapPins) {
+      const mapPinAds = mapElement.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+      for (let pin of mapPinAds) {
         pin.remove();
       }
     }
