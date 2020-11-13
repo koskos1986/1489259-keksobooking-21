@@ -5,7 +5,7 @@
   const ENTER_KEY = 13;
   const ESCAPE_KEY = 27;
   const MAIN_PIN_WIDTH = 62;
-  const MAIN_PIN_HEIGHT = 62;
+  const MAIN_PIN_HEIGHT = 84;
   const MIN_PIN_X = 0;
   const MAX_PIN_X = 1200;
   const MIN_PIN_Y = 130;
@@ -14,7 +14,6 @@
   const mapPins = mapElement.querySelector(`.map__pins`);
   const mainPin = mapPins.querySelector(`.map__pin--main`);
 
-  // События для активации страницы
   const onMainPinMouseDown = (evt) => {
     if (evt.button === MOUSE_MAIN_BUTTON) {
       window.main.activatePage();

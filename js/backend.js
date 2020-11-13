@@ -4,7 +4,7 @@
   const URL_TO_GET = `https://21.javascript.pages.academy/keksobooking/data`;
   const URL_TO_POST = `https://21.javascript.pages.academy/keksobooking`;
   const TIMEOUT_IN_MS = 10000;
-  const statusCode = {
+  const StatusCode = {
     OK: 200,
     BAD_REQUEST: 400,
     USER_NOT_AUTHORIZED: 401,
@@ -21,22 +21,21 @@
     xhr.addEventListener(`load`, () => {
       let error;
       switch (xhr.status) {
-        case statusCode.OK:
+        case StatusCode.OK:
           onSuccess(xhr.response);
           break;
-        case statusCode.BAD_REQUEST:
+        case StatusCode.BAD_REQUEST:
           error = `Неверный запрос`;
           break;
-        case statusCode.USER_NOT_AUTHORIZED:
+        case StatusCode.USER_NOT_AUTHORIZED:
           error = `Пользователь не авторизован`;
           break;
-        case statusCode.URL_NOT_FOUND:
+        case StatusCode.URL_NOT_FOUND:
           error = `Ничего не найдено`;
           break;
-        case statusCode.INTERNAL_SERVER_ERROR:
+        case StatusCode.INTERNAL_SERVER_ERROR:
           error = `Внутренняя ошибка сервера`;
           break;
-
         default:
           error = `Cтатус ответа: : ` + xhr.status + ` ` + xhr.statusText;
       }

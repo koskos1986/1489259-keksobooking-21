@@ -7,7 +7,6 @@
     house: 1000,
     bungalow: 0
   };
-
   const MIN_TITLE_LENGTH = 30;
   const MAX_TITLE_LENGTH = 100;
   const RoomsForGuests = {

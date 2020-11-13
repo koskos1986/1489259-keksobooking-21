@@ -20,6 +20,7 @@
       elements[i].disabled = isDisabled;
     }
   };
+
   const adForm = document.querySelector(`.ad-form`);
   const mapElement = document.querySelector(`.map`);
   const mapPins = mapElement.querySelector(`.map__pins`);

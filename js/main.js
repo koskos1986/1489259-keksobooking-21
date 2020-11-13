@@ -20,14 +20,12 @@
     if (!adForm.classList.contains(`ad-form--disabled`)) {
       adForm.classList.add(`ad-form--disabled`);
     }
-
+    adForm.classList.add(`ad-form--disabled`);
     window.pins.removePins();
-
     adForm.reset();
-
     mainPin.style.top = MAIN_PIN_DEFAULT_POSITION.top;
     mainPin.style.left = MAIN_PIN_DEFAULT_POSITION.left;
-
+    window.utils.setupAddress();
     window.utils.toggleFormElements(adFormFieldset, true);
     window.utils.toggleFormElements(mapFiltersContainerElements, true);
 
@@ -36,8 +34,8 @@
   };
 
   const onSuccess = (serverResponse) => {
-    window.data.saveAds(serverResponse);
-    window.pins.renderPins(window.data.getAds());
+    window.data.save(serverResponse);
+    window.pins.renderPins(window.data.get());
   };
 
   const activatePage = () => {
@@ -50,6 +48,8 @@
     mainPin.removeEventListener(`keydown`, window.map.onMainPinKeydown);
     window.backend.load(onSuccess, window.message.onError);
   };
+
+  deactivatePage();
 
   window.main = {
     'activatePage': activatePage,
