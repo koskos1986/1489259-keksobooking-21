@@ -61,7 +61,7 @@
 
     let dragged = false;
 
-    const onMouseMove = function (moveEvt) {
+    const onMouseMove = (moveEvt) => {
       moveEvt.preventDefault();
 
       dragged = true;
@@ -107,11 +107,11 @@
       window.utils.setupAddress();
     };
 
-    const onMouseUp = function (upEvt) {
+    const onMouseUp = (upEvt) => {
       upEvt.preventDefault();
 
       if (dragged) {
-        const onClickPreventDefault = function (clickEvt) {
+        const onClickPreventDefault = (clickEvt) => {
           clickEvt.preventDefault();
           mainPin.removeEventListener(`click`, onClickPreventDefault);
         };

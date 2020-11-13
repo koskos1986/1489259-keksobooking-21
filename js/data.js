@@ -3,14 +3,14 @@
 (() => {
   let content = [];
 
-  const saveData = (data) => {
+  const saveAds = (data) => {
     content = data;
   };
 
-  const getData = () => content;
+  const getAds = () => content;
 
   window.data = {
-    'saveData': saveData,
-    'getData': getData
+    'saveAds': saveAds,
+    'getAds': getAds
   };
 })();

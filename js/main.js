@@ -21,12 +21,7 @@
       adForm.classList.add(`ad-form--disabled`);
     }
 
-    if (mapElement.querySelector(`.map__pin:not(.map__pin--main)`)) {
-      const mapPins = mapElement.querySelectorAll(`.map__pin:not(.map__pin--main)`);
-      for (let pin of mapPins) {
-        pin.remove();
-      }
-    }
+    window.pins.removePins();
 
     adForm.reset();
 
@@ -41,8 +36,8 @@
   };
 
   const onSuccess = (serverResponse) => {
-    window.data.saveData(serverResponse);
-    window.pins.renderPins(window.data.getData());
+    window.data.saveAds(serverResponse);
+    window.pins.renderPins(window.data.getAds());
   };
 
   const activatePage = () => {
