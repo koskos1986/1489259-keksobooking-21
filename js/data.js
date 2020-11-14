@@ -10,7 +10,7 @@
   const getAds = () => content;
 
   window.data = {
-    'saveAds': saveAds,
-    'getAds': getAds
+    'save': saveAds,
+    'get': getAds
   };
 })();

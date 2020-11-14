@@ -15,12 +15,14 @@
     } else {
       cardTitle.remove();
     }
+
     const cardAdress = cardElement.querySelector(`.popup__text--address`);
     if (ad.offer.address) {
       cardAdress.textContent = ad.offer.address;
     } else {
       cardAdress.remove();
     }
+
     const cardPrice = cardElement.querySelector(`.popup__text--price`);
     if (ad.offer.price) {
       cardPrice.textContent = ad.offer.price + `₽/ночь`;
