@@ -57,10 +57,10 @@
   };
 
   window.validators = {
-    'getCapacityChange': getCapacityChange,
-    'validateTitle': validateTitle,
-    'validateCheckIn': validateCheckIn,
-    'validateCheckOut': validateCheckOut,
-    'validateMinPriceForTypeRoom': validateMinPriceForTypeRoom
+    getCapacityChange,
+    validateTitle,
+    validateCheckIn,
+    validateCheckOut,
+    validateMinPriceForTypeRoom
   };
 })();

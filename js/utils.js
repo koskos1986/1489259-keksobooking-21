@@ -34,10 +34,10 @@
   };
 
   window.utils = {
-    'getRandomNumber': getRandomNumber,
-    'getRandomItemFromArray': getRandomItemFromArray,
-    'getSeveralItemsFromArray': getSeveralItemsFromArray,
-    'toggleFormElements': toggleFormElements,
-    'setupAddress': setupAddress
+    getRandomNumber,
+    getRandomItemFromArray,
+    getSeveralItemsFromArray,
+    toggleFormElements,
+    setupAddress
   };
 })();

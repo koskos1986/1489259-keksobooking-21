@@ -49,14 +49,14 @@
     mainPin.removeEventListener(`mousedown`, window.map.onMainPinMouseDown);
     mainPin.removeEventListener(`keydown`, window.map.onMainPinKeydown);
     window.backend.load(onSuccess, window.message.onError);
-    formReset.addEventListener(`click`, window.form.reset);
+    formReset.addEventListener(`click`, window.form.onResetButtonClick);
   };
 
   deactivatePage();
 
   window.main = {
-    'activatePage': activatePage,
-    'deactivatePage': deactivatePage
+    activatePage,
+    deactivatePage
   };
 })();
 

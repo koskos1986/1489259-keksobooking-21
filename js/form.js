@@ -25,16 +25,14 @@
     }
   });
 
-  const onFormResetButtonClick = (evt) => {
+  const onResetButtonClick = (evt) => {
     evt.preventDefault();
     adForm.reset();
     window.main.deactivatePage();
-    formReset.removeEventListener(`click`, onFormResetButtonClick);
-
+    formReset.removeEventListener(`click`, onResetButtonClick);
   };
 
   window.form = {
-    'reset': onFormResetButtonClick
+    onResetButtonClick
   };
-
 })();

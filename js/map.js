@@ -129,9 +129,8 @@
   mainPin.addEventListener(`mousedown`, onMousemoveMainPin);
 
   window.map = {
-    'onMainPinMouseDown': onMainPinMouseDown,
-    'onMainPinKeydown': onMainPinKeydown,
-    'removeAdCard': removeAdCard
+    onMainPinMouseDown,
+    onMainPinKeydown,
+    removeAdCard
   };
-
 })();
