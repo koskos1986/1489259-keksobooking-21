@@ -19,7 +19,7 @@
 
   adForm.addEventListener(`submit`, (evt) => {
     if (adForm.reportValidity()) {
-      window.backend.upload(new FormData(adForm), window.message.showSuccessMessage, window.message.onError);
+      window.backend.upload(new FormData(adForm), window.message.showSuccess, window.message.onError);
       window.map.removeAdCard();
       evt.preventDefault();
     }
@@ -29,8 +29,12 @@
     evt.preventDefault();
     adForm.reset();
     window.main.deactivatePage();
+    formReset.removeEventListener(`click`, onFormResetButtonClick);
+
   };
 
-  formReset.addEventListener(`click`, onFormResetButtonClick);
+  window.form = {
+    'reset': onFormResetButtonClick
+  };
 
 })();

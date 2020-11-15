@@ -115,10 +115,10 @@
     const currentCard = mapElement.querySelector(`.map__card`);
     const adCardCloseButton = currentCard.querySelector(`.popup__close`);
     adCardCloseButton.addEventListener(`click`, window.map.removeAdCard);
-    adCardCloseButton.addEventListener(`keydown`, window.map.removeAdCard);
+    mapElement.addEventListener(`keydown`, window.map.removeAdCard);
   };
 
   window.card = {
-    'renderAdCard': renderAdCard
+    'render': renderAdCard
   };
 })();

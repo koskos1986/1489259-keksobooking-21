@@ -60,8 +60,8 @@
     window.map.removeAdCard();
 
     const filteredAds = window.data.get().filter(filterAds);
-    window.pins.removePins();
-    window.pins.renderPins(filteredAds);
+    window.pins.remove();
+    window.pins.render(filteredAds);
   });
 
   filters.addEventListener(`change`, onFilterChange);

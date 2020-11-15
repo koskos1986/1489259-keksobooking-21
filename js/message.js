@@ -68,6 +68,6 @@
 
   window.message = {
     'onError': onError,
-    'showSuccessMessage': showSuccessMessage
+    'showSuccess': showSuccessMessage
   };
 })();

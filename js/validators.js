@@ -3,8 +3,8 @@
 (() => {
   const PRICE_PER_TYPE_ROOM = {
     palace: 10000,
-    flat: 5000,
-    house: 1000,
+    flat: 1000,
+    house: 5000,
     bungalow: 0
   };
   const MIN_TITLE_LENGTH = 30;

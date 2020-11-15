@@ -28,8 +28,8 @@
   const mainPinLocation = adForm.querySelector(`#address`);
 
   const setupAddress = () => {
-    const newPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
-    const newPinPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
+    const newPinPositionY = Math.round((mapElement.classList.contains(`map--faded`)) ? mainPin.offsetTop + MAIN_PIN_HEIGHT / 2 : mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
+    const newPinPositionX = Math.round(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
     mainPinLocation.value = `${newPinPositionX}, ${newPinPositionY}`;
   };
 

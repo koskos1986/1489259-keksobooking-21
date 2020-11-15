@@ -75,8 +75,8 @@
         y: moveEvt.clientY
       };
 
-      const mainPinX = mainPin.offsetLeft - axisShift.x;
-      const mainPinY = mainPin.offsetTop - axisShift.y;
+      let mainPinX = mainPin.offsetLeft - axisShift.x;
+      let mainPinY = mainPin.offsetTop - axisShift.y;
 
       const pinMovingBorders = {
         'minBorderX': MIN_PIN_X - (MAIN_PIN_WIDTH / 2),

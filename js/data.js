@@ -1,13 +1,13 @@
 'use strict';
 
 (() => {
-  let content = [];
+  let values = [];
 
   const saveAds = (data) => {
-    content = data;
+    values = data;
   };
 
-  const getAds = () => content;
+  const getAds = () => values;
 
   window.data = {
     'save': saveAds,
