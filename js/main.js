@@ -7,6 +7,7 @@
   };
   const mapElement = document.querySelector(`.map`);
   const mainPin = document.querySelector(`.map__pin--main`);
+  const formReset = document.querySelector(`.ad-form__reset`);
   const adForm = document.querySelector(`.ad-form`);
   const adFormFieldset = adForm.querySelectorAll(`fieldset`);
   const mapFiltersContainer = document.querySelector(`.map__filters-container`);
@@ -21,7 +22,8 @@
       adForm.classList.add(`ad-form--disabled`);
     }
     adForm.classList.add(`ad-form--disabled`);
-    window.pins.removePins();
+    window.pins.remove();
+    window.map.removeAdCard();
     adForm.reset();
     mainPin.style.top = MAIN_PIN_DEFAULT_POSITION.top;
     mainPin.style.left = MAIN_PIN_DEFAULT_POSITION.left;
@@ -35,7 +37,7 @@
 
   const onSuccess = (serverResponse) => {
     window.data.save(serverResponse);
-    window.pins.renderPins(window.data.get());
+    window.pins.render(window.data.get());
   };
 
   const activatePage = () => {
@@ -47,13 +49,14 @@
     mainPin.removeEventListener(`mousedown`, window.map.onMainPinMouseDown);
     mainPin.removeEventListener(`keydown`, window.map.onMainPinKeydown);
     window.backend.load(onSuccess, window.message.onError);
+    formReset.addEventListener(`click`, window.form.onResetButtonClick);
   };
 
   deactivatePage();
 
   window.main = {
-    'activatePage': activatePage,
-    'deactivatePage': deactivatePage
+    activatePage,
+    deactivatePage
   };
 })();
 

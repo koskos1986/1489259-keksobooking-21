@@ -3,8 +3,8 @@
 (() => {
   const PRICE_PER_TYPE_ROOM = {
     palace: 10000,
-    flat: 5000,
-    house: 1000,
+    flat: 1000,
+    house: 5000,
     bungalow: 0
   };
   const MIN_TITLE_LENGTH = 30;
@@ -57,10 +57,10 @@
   };
 
   window.validators = {
-    'getCapacityChange': getCapacityChange,
-    'validateTitle': validateTitle,
-    'validateCheckIn': validateCheckIn,
-    'validateCheckOut': validateCheckOut,
-    'validateMinPriceForTypeRoom': validateMinPriceForTypeRoom
+    getCapacityChange,
+    validateTitle,
+    validateCheckIn,
+    validateCheckOut,
+    validateMinPriceForTypeRoom
   };
 })();

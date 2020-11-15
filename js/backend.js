@@ -65,7 +65,7 @@
   };
 
   window.backend = {
-    'load': load,
-    'upload': upload,
+    load,
+    upload
   };
 })();

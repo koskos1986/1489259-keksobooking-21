@@ -24,7 +24,7 @@
           mapElement.querySelector(`.map__pin--active`).classList.remove(`map__pin--active`);
         }
         evt.target.closest(`.map__pin`).classList.add(`map__pin--active`);
-        window.card.renderAdCard(ad);
+        window.card.render(ad);
       }
     };
 
@@ -34,7 +34,7 @@
           mapElement.querySelector(`.map__pin--active`).classList.remove(`map__pin--active`);
         }
         evt.target.closest(`.map__pin`).classList.add(`map__pin--active`);
-        window.card.renderAdCard(ad);
+        window.card.render(ad);
       }
     };
 
@@ -71,7 +71,7 @@
   };
 
   window.pins = {
-    'removePins': removePins,
-    'renderPins': renderPins
+    'remove': removePins,
+    'render': renderPins
   };
 })();
