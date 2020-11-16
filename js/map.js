@@ -30,13 +30,13 @@
   mainPin.addEventListener(`mousedown`, onMainPinMouseDown);
 
   const onClickCloseButton = (evt) => {
-    if (evt.button === MOUSE_MAIN_BUTTON) {
+    if (evt.keyCode === MOUSE_MAIN_BUTTON) {
       removeAdCard();
     }
   };
 
   const onPressEscButton = (evt) => {
-    if (evt.button === ESCAPE_KEY) {
+    if (evt.key === ESCAPE_KEY) {
       removeAdCard();
     }
   };
@@ -44,9 +44,12 @@
   const removeAdCard = () => {
     const currentCard = mapElement.querySelector(`.map__card`);
     if (currentCard) {
-      document.removeEventListener(`mousedown`, onClickCloseButton);
-      document.removeEventListener(`keydown`, onPressEscButton);
       currentCard.remove();
+      document.removeEventListener(`keydown`, onPressEscButton);
+      document.removeEventListener(`mousedown`, onClickCloseButton);
+    }
+    if (mapElement.querySelector(`.map__pin--active`)) {
+      mapElement.querySelector(`.map__pin--active`).classList.remove(`map__pin--active`);
     }
   };
 

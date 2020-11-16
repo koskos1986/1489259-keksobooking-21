@@ -4,7 +4,6 @@
   const MAX_ADS_COUNT = 5;
   const INDENT_FOR_PIN_EDGE_X = 25;
   const INDENT_FOR_PIN_EDGE_Y = 35;
-  const MOUSE_MAIN_BUTTON = 0;
   const ENTER_KEY = 13;
 
   const mapElement = document.querySelector(`.map`);
@@ -19,7 +18,7 @@
     pinElement.style.top = `${ad.location.y - INDENT_FOR_PIN_EDGE_Y}px`;
 
     const onClickMapPin = (evt) => {
-      if (evt.button === MOUSE_MAIN_BUTTON && evt.target.closest(`.map__pin`) && !evt.target.closest(`.map__pin--main`)) {
+      if (evt.target.closest(`.map__pin`) && !evt.target.closest(`.map__pin--main`)) {
         if (mapElement.querySelector(`.map__pin--active`)) {
           mapElement.querySelector(`.map__pin--active`).classList.remove(`map__pin--active`);
         }

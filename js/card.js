@@ -2,10 +2,6 @@
 
 (() => {
   const generateAdCard = (ad) => {
-    const previousCard = document.querySelector(`.map__card`);
-    if (previousCard) {
-      previousCard.remove();
-    }
 
     const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
     const cardElement = cardTemplate.cloneNode(true);
@@ -115,7 +111,7 @@
     const currentCard = mapElement.querySelector(`.map__card`);
     const adCardCloseButton = currentCard.querySelector(`.popup__close`);
     adCardCloseButton.addEventListener(`click`, window.map.removeAdCard);
-    mapElement.addEventListener(`keydown`, window.map.removeAdCard);
+    document.addEventListener(`keydown`, window.map.removeAdCard);
   };
 
   window.card = {
