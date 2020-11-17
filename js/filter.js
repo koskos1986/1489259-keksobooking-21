@@ -57,7 +57,7 @@
   };
 
   const onFilterChange = window.debounce(() => {
-    window.map.removeAdCard();
+    window.card.remove();
 
     const filteredAds = window.data.get().filter(filterAds);
     window.pins.remove();

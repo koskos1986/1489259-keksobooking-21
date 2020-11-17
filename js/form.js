@@ -20,7 +20,7 @@
   adForm.addEventListener(`submit`, (evt) => {
     if (adForm.reportValidity()) {
       window.backend.upload(new FormData(adForm), window.message.showSuccess, window.message.onError);
-      window.map.removeAdCard();
+      window.card.remove();
       evt.preventDefault();
     }
   });
