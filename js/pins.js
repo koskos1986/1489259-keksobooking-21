@@ -38,7 +38,7 @@
     };
 
     pinElement.addEventListener(`click`, onClickMapPin);
-    mapPins.addEventListener(`keydown`, onPressEnterMapPin);
+    pinElement.addEventListener(`keydown`, onPressEnterMapPin);
     return pinElement;
   };
 
