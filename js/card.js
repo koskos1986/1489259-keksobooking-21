@@ -1,9 +1,9 @@
 'use strict';
 
 (() => {
+  const ESCAPE_KEY = 27;
   const mapElement = document.querySelector(`.map`);
   const mapFilterContainer = document.querySelector(`.map__filters-container`);
-  const ESCAPE_KEY = 27;
 
   const generateAdCard = (ad) => {
     const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
@@ -136,7 +136,7 @@
     if (mapElement.querySelector(`.map__pin--active`)) {
       mapElement.querySelector(`.map__pin--active`).classList.remove(`map__pin--active`);
     }
-    document.removeEventListener(`mousedown`, onClickCloseButton);
+
     document.removeEventListener(`keydown`, onPressEscButton);
   };
 
