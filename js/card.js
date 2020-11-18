@@ -1,12 +1,11 @@
 'use strict';
 
 (() => {
-  const generateAdCard = (ad) => {
-    const previousCard = document.querySelector(`.map__card`);
-    if (previousCard) {
-      previousCard.remove();
-    }
+  const ESCAPE_KEY = 27;
+  const mapElement = document.querySelector(`.map`);
+  const mapFilterContainer = document.querySelector(`.map__filters-container`);
 
+  const generateAdCard = (ad) => {
     const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
     const cardElement = cardTemplate.cloneNode(true);
     const cardTitle = cardElement.querySelector(`.popup__title`);
@@ -109,16 +108,40 @@
   };
 
   const renderAdCard = (ad) => {
-    const mapElement = document.querySelector(`.map`);
-    const mapFilterContainer = document.querySelector(`.map__filters-container`);
+    removeAdCard();
     mapElement.insertBefore(generateAdCard(ad), mapFilterContainer);
     const currentCard = mapElement.querySelector(`.map__card`);
     const adCardCloseButton = currentCard.querySelector(`.popup__close`);
-    adCardCloseButton.addEventListener(`click`, window.map.removeAdCard);
-    mapElement.addEventListener(`keydown`, window.map.removeAdCard);
+    adCardCloseButton.addEventListener(`click`, onClickCloseButton);
+    document.addEventListener(`keydown`, onPressEscButton);
+  };
+
+  const onClickCloseButton = () => {
+    removeAdCard();
+  };
+
+  const onPressEscButton = (evt) => {
+    if (evt.keyCode === ESCAPE_KEY) {
+      removeAdCard();
+    }
+  };
+
+  const removeAdCard = () => {
+    const currentCard = mapElement.querySelector(`.map__card`);
+
+    if (currentCard) {
+      currentCard.remove();
+    }
+
+    if (mapElement.querySelector(`.map__pin--active`)) {
+      mapElement.querySelector(`.map__pin--active`).classList.remove(`map__pin--active`);
+    }
+
+    document.removeEventListener(`keydown`, onPressEscButton);
   };
 
   window.card = {
-    'render': renderAdCard
+    'render': renderAdCard,
+    'remove': removeAdCard
   };
 })();

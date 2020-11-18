@@ -23,7 +23,7 @@
     }
     adForm.classList.add(`ad-form--disabled`);
     window.pins.remove();
-    window.map.removeAdCard();
+    window.card.remove();
     adForm.reset();
     mainPin.style.top = MAIN_PIN_DEFAULT_POSITION.top;
     mainPin.style.left = MAIN_PIN_DEFAULT_POSITION.left;

@@ -3,7 +3,6 @@
 (() => {
   const MOUSE_MAIN_BUTTON = 0;
   const ENTER_KEY = 13;
-  const ESCAPE_KEY = 27;
   const MAIN_PIN_WIDTH = 62;
   const MAIN_PIN_HEIGHT = 84;
   const MIN_PIN_X = 0;
@@ -28,27 +27,6 @@
 
   mainPin.addEventListener(`keydown`, onMainPinKeydown);
   mainPin.addEventListener(`mousedown`, onMainPinMouseDown);
-
-  const onClickCloseButton = (evt) => {
-    if (evt.button === MOUSE_MAIN_BUTTON) {
-      removeAdCard();
-    }
-  };
-
-  const onPressEscButton = (evt) => {
-    if (evt.button === ESCAPE_KEY) {
-      removeAdCard();
-    }
-  };
-
-  const removeAdCard = () => {
-    const currentCard = mapElement.querySelector(`.map__card`);
-    if (currentCard) {
-      document.removeEventListener(`mousedown`, onClickCloseButton);
-      document.removeEventListener(`keydown`, onPressEscButton);
-      currentCard.remove();
-    }
-  };
 
   const onMousemoveMainPin = (evt) => {
     evt.preventDefault();
@@ -130,7 +108,6 @@
 
   window.map = {
     onMainPinMouseDown,
-    onMainPinKeydown,
-    removeAdCard
+    onMainPinKeydown
   };
 })();
